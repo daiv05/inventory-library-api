@@ -75,7 +75,7 @@ class UsuarioController extends Controller
                 'password' => 'required|string|min:8|max:50',
                 'id_estado' => [
                     'required',
-                    Rule::in(EstadosEnum::usuarios())
+                    Rule::in(EstadosEnum::general())
                 ],
                 // Persona
                 'nombre' => 'string|max:50|regex:/^[a-zA-Z\sáéíóúñÁÉÍÓÚÑ]+$/',
@@ -171,7 +171,7 @@ class UsuarioController extends Controller
                 'apellido' => 'string|max:50|regex:/^[a-zA-Z\sáéíóúñÁÉÍÓÚÑ]+$/',
                 'identificacion' => 'string|max:20|regex:/^[a-zA-Z0-9\-]+$/',
                 'activo' => 'boolean',
-                'id_estado' => Rule::in(EstadosEnum::usuarios()),
+                'id_estado' => Rule::in(EstadosEnum::general()),
                 'roles' => 'array',
                 'roles.*' => 'string|exists:roles,name',
             ], [
@@ -262,7 +262,7 @@ class UsuarioController extends Controller
         // Acepta actualizar estado y roles asignados
         try {
             $validator = Validator::make($request->all(), [
-                'id_estado' => Rule::in(EstadosEnum::usuarios()),
+                'id_estado' => Rule::in(EstadosEnum::general()),
                 'roles' => 'array',
                 'roles.*' => 'string|exists:roles,name',
             ], [

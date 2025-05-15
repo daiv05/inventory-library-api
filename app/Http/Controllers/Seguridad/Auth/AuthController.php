@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Exceptions\JWTException;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
 {
@@ -19,7 +20,7 @@ class AuthController extends Controller
 
         return response()->json([
             'accessToken' => $token,
-            'expires_in' => Auth::guard('api')->factory()->getTTL()
+            'expires_in' => JWTAuth::factory()->getTTL()
         ]);
     }
 
@@ -33,10 +34,10 @@ class AuthController extends Controller
     public function refresh(Request $request)
     {
         try {
-            $newToken = Auth::guard('api')->refresh();
+            $newToken = JWTAuth::refresh($request->input('token'));
             return response()->json([
                 'accessToken' => $newToken,
-                'expires_in' => Auth::guard('api')->factory()->getTTL(),
+                'expires_in' => JWTAuth::factory()->getTTL()
             ]);
         } catch (JWTException $e) {
             return response()->json(['message' => 'No se puedo recuperar la sesión'], 401);
