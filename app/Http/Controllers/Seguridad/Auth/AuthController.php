@@ -13,8 +13,8 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
-
-        if (!$token = Auth::guard('api')->attempt($credentials)) {
+        $token = JWTAuth::attempt($credentials);
+        if (!$token) {
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
         }
 

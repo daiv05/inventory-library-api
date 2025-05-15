@@ -25,15 +25,15 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->alias([
-            'validate.user' => \App\Http\Middleware\ValidateUser::class,
+            'validate.user' => \App\Http\Middleware\UserValidator::class,
         ]);
 
         $middleware->api(prepend: [
-            \App\Http\Middleware\JwtMiddleware::class,
+            \App\Http\Middleware\JwtValidator::class,
         ]);
 
         $middleware->group('public', [
-            \Illuminate\Routing\Middleware\ThrottleRequests::class . ':api',
+            \Illuminate\Routing\Middleware\ThrottleRequests::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ]);
     })
