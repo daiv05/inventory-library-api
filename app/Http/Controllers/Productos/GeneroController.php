@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Libros;
+namespace App\Http\Controllers\Productos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Libros\DetalleLibro;
+use App\Models\Libros\Genero;
 use Illuminate\Http\Request;
 
-class DetalleLibroController extends Controller
+class GeneroController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,7 +27,7 @@ class DetalleLibroController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(DetalleLibro $detalleLibro)
+    public function show(Genero $genero)
     {
         //
     }
@@ -35,7 +35,7 @@ class DetalleLibroController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DetalleLibro $detalleLibro)
+    public function update(Request $request, Genero $genero)
     {
         //
     }
@@ -43,7 +43,7 @@ class DetalleLibroController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(DetalleLibro $detalleLibro)
+    public function destroy(Genero $genero)
     {
         //
     }

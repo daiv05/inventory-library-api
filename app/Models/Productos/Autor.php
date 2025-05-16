@@ -1,16 +1,18 @@
 <?php
 
-namespace App\Models\Libros;
+namespace App\Models\Productos;
 
 use App\Models\Catalogo\Estado;
 use Illuminate\Database\Eloquent\Model;
 
-class Genero extends Model
+class Autor extends Model
 {
-    protected $table = 'lib_generos';
+    protected $table = 'lib_autores';
 
     protected $fillable = [
         'nombre',
+        'fecha_nacimiento',
+        'descripcion',
         'id_estado',
     ];
 
@@ -19,8 +21,8 @@ class Genero extends Model
         return $this->belongsTo(Estado::class, 'id_estado');
     }
 
-    public function detalleLibro()
+    public function detalleProducto()
     {
-        return $this->hasMany(DetalleLibro::class, 'id_genero');
+        return $this->hasMany(DetalleProducto::class, 'id_genero');
     }
 }

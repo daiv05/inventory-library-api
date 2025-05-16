@@ -37,7 +37,7 @@ class GeneroSeeder extends Seeder
         ];
 
         foreach ($generos as $genero) {
-            \App\Models\Libros\Genero::create(
+            \App\Models\Productos\Genero::create(
                 [
                     'nombre' => $genero['nombre'],
                     'id_estado' => $genero['id_estado'],

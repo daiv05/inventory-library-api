@@ -47,7 +47,7 @@ class AutorSeeder extends Seeder
         ];
 
         foreach ($autores as $autor) {
-            \App\Models\Libros\Autor::create(
+            \App\Models\Productos\Autor::create(
                 [
                     'nombre' => $autor['nombre'],
                     'fecha_nacimiento' => $autor['fecha_nacimiento'],

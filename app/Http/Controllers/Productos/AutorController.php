@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Libros;
+namespace App\Http\Controllers\Productos;
 
 use App\Http\Controllers\Controller;
 use App\Models\Libros\Autor;
