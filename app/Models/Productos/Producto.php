@@ -5,9 +5,12 @@ namespace App\Models\Productos;
 use App\Models\Catalogo\Estado;
 use App\Models\Libros\DetalleLibro;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Producto extends Model
 {
+    use HasFactory;
+
     protected $table = 'prd_productos';
 
     protected $fillable = [

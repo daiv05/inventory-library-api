@@ -3,10 +3,13 @@
 namespace App\Models\Productos;
 
 use App\Models\Catalogo\Estado;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Categoria extends Model
 {
+    use HasFactory;
+
     protected $table = 'prd_categorias';
 
     protected $fillable = [

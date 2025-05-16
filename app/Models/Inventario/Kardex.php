@@ -6,9 +6,12 @@ use App\Models\Catalogo\TipoMovimiento;
 use App\Models\Productos\Producto;
 use App\Models\Seguridad\User;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Kardex extends Model
 {
+    use HasFactory;
+
     protected $table = 'inv_kardex';
 
     protected $fillable = [
