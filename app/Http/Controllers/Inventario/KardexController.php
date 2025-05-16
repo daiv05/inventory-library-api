@@ -71,6 +71,15 @@ class KardexController extends Controller
             } else { // Salida
                 $producto->stock -= $request->cantidad;
             }
+
+            // Actualizar el precio actual (promedio ponderado)
+            $totalStock = $producto->stock;
+            $totalValor = $producto->precio_unitario * $totalStock;
+            $nuevoValor = $request->precio_unitario * $request->cantidad;
+            $nuevoTotalValor = $totalValor + $nuevoValor;
+            $nuevoPrecioUnitario = $nuevoTotalValor / ($totalStock + $request->cantidad);
+            $producto->precio_unitario = $nuevoPrecioUnitario;
+            
             $producto->save();
 
             DB::commit();
