@@ -13,7 +13,7 @@ class UserSeeder extends Seeder
         $usuarios = [
             [
                 'id_persona' => 1,
-                'username' => 'administrador',
+                'username' => 'Administrador',
                 'email' => 'administrador@yopmail.com',
                 'password' => bcrypt('pass123'),
                 'role' => 'ADMINISTRADOR',
@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id_persona' => 2,
-                'username' => 'jefe.inventario01',
+                'username' => 'Jefe Inventario 01',
                 'email' => 'jefe.inventario01@yopmail.com',
                 'password' => bcrypt('pass123'),
                 'role' => 'JEFE DE INVENTARIO',
@@ -29,7 +29,7 @@ class UserSeeder extends Seeder
             ],
             [
                 'id_persona' => 3,
-                'username' => 'jefe.inventario02',
+                'username' => 'Jefe Inventario 02',
                 'email' => 'jefe.inventario02@yopmail.com',
                 'password' => bcrypt('pass123'),
                 'role' => 'JEFE DE INVENTARIO',
