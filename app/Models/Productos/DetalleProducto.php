@@ -35,4 +35,9 @@ class DetalleProducto extends Model
     {
         return $this->belongsTo(Categoria::class, 'id_categoria');
     }
+
+    public function genero()
+    {
+        return $this->belongsTo(Genero::class, 'id_genero');
+    }
 }

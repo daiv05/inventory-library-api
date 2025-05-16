@@ -22,7 +22,7 @@ Route::middleware('auth:api')->group(function () {
         });
 
         // Catalogos
-        Route::prefix('catalogo')->group(function () {
+        Route::prefix('catalogos')->group(function () {
             require __DIR__ . '/catalogues/catalogs.php';
         });
 

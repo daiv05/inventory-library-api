@@ -18,7 +18,7 @@ enum EstadosEnum: int
     }
 
     // Estados de usuario
-    public static function libros(): array
+    public static function productos(): array
     {
         return [
             self::ACTIVO,

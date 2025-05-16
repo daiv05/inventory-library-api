@@ -20,7 +20,7 @@ class ProductoController extends Controller
         try {
             $productos = Producto::all();
             $paginatedData = $this->paginate($productos->toArray(), request('per_page', GeneralEnum::PAGINACION->value), $request['page'] ?? 1);
-            return $this->successPaginated('Encuestas obtenidas exitosamente', $paginatedData, Response::HTTP_OK);
+            return $this->successPaginated('Productos obtenidos exitosamente', $paginatedData, Response::HTTP_OK);
         } catch (\Exception $e) {
             return $this->error('Error al obtener los productos', $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
         }
@@ -30,7 +30,7 @@ class ProductoController extends Controller
     {
         try {
             $validation = Validator::make($request->all(), [
-                'id_categoria' => 'required|integer|exists:ctl_categorias,id',
+                'id_categoria' => 'required|integer|exists:prd_categorias,id',
                 'id_estado' => 'required|integer|exists:ctl_estados,id',
                 'nombre' => 'required|string|max:50',
                 'descripcion' => 'required|string|max:255',
@@ -151,9 +151,10 @@ class ProductoController extends Controller
         }
     }
 
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
         try {
+            $producto = Producto::findOrFail($id);
             $producto->delete();
             return $this->success('Producto eliminado exitosamente', null, Response::HTTP_NO_CONTENT);
         } catch (\Exception $e) {
