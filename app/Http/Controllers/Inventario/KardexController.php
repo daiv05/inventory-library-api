@@ -11,6 +11,7 @@ use App\Traits\PaginationTrait;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Facades\JWTAuth;
 
 class KardexController extends Controller
 {
@@ -31,8 +32,8 @@ class KardexController extends Controller
     {
         try {
             $validation = Validator::make($request->all(), [
-                'id_producto' => 'required|integer|exists:productos,id',
-                'id_tipo_movimiento' => 'required|integer|exists:ctl_tipos_movimiento,id',
+                'id_producto' => 'required|integer|exists:prd_productos,id',
+                'id_tipo_movimiento' => 'required|integer|exists:ctl_tipos_movimientos,id',
                 'cantidad' => 'required|integer',
                 'precio_unitario' => 'required|numeric',
                 'observaciones' => 'string|max:255|nullable',
@@ -62,28 +63,34 @@ class KardexController extends Controller
                 'cantidad' => $request->cantidad,
                 'precio_unitario' => $request->precio_unitario,
                 'observaciones' => $request->observaciones,
+                'id_usuario_registro' => JWTAuth::user()->id,
             ]);
 
             // Actualizar el stock del producto
             $producto = $kardex->producto;
             if ($request->id_tipo_movimiento == 1) { // Ingreso
-                $producto->stock += $request->cantidad;
+                $producto->stock_actual += $request->cantidad;
             } else { // Salida
-                $producto->stock -= $request->cantidad;
+                $producto->stock_actual -= $request->cantidad;
             }
 
             // Actualizar el precio actual (promedio ponderado)
-            $totalStock = $producto->stock;
-            $totalValor = $producto->precio_unitario * $totalStock;
-            $nuevoValor = $request->precio_unitario * $request->cantidad;
-            $nuevoTotalValor = $totalValor + $nuevoValor;
-            $nuevoPrecioUnitario = $nuevoTotalValor / ($totalStock + $request->cantidad);
-            $producto->precio_unitario = $nuevoPrecioUnitario;
-            
+            if ($producto->precio_actual == 0) {
+                $producto->precio_actual = $request->precio_unitario;
+            } else {
+                $totalStock = $producto->stock_actual;
+                $totalValor = $producto->precio_actual * $totalStock;
+                $nuevoValor = $request->precio_unitario * $request->cantidad;
+                $nuevoTotalValor = $totalValor + $nuevoValor;
+                $nuevoPrecioUnitario = $nuevoTotalValor / ($totalStock + $request->cantidad);
+                $producto->precio_actual = $nuevoPrecioUnitario;
+            }
+
+
             $producto->save();
 
             DB::commit();
-            return $this->success('Movimiento registrado exitosamente', null, Response::HTTP_CREATED);
+            return $this->success('Movimiento registrado exitosamente', $kardex, Response::HTTP_CREATED);
         } catch (\Exception $e) {
             DB::rollBack();
             return $this->error('Error al registrar el movimiento', $e->getMessage(), Response::HTTP_INTERNAL_SERVER_ERROR);
