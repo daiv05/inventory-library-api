@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Productos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Libros\Autor;
+use App\Models\Productos\Autor;
 use Illuminate\Http\Request;
+use App\Traits\ResponseTrait;
 
 class AutorController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ResponseTrait;
+
     public function index()
     {
-        //
+        try {
+            $autores = Autor::all();
+            return $this->success('Autores obtenidos correctamente', $autores, 200);
+        } catch (\Exception $e) {
+            return $this->error('Error al obtener los autores', $e->getMessage(), 500);
+        }
     }
 
     /**

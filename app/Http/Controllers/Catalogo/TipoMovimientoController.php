@@ -4,46 +4,19 @@ namespace App\Http\Controllers\Catalogo;
 use App\Http\Controllers\Controller;
 use App\Models\Catalogo\TipoMovimiento;
 use Illuminate\Http\Request;
+use App\Traits\ResponseTrait;
 
 class TipoMovimientoController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ResponseTrait;
+
     public function index()
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(TipoMovimiento $tipoMovimiento)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, TipoMovimiento $tipoMovimiento)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(TipoMovimiento $tipoMovimiento)
-    {
-        //
+        try {
+            $tiposMovimiento = TipoMovimiento::all();
+            return $this->success('Tipos de movimiento obtenidos correctamente', $tiposMovimiento, 200);
+        } catch (\Exception $e) {
+            return $this->error('Error al obtener los tipos de movimiento', $e->getMessage(), 500);
+        }
     }
 }

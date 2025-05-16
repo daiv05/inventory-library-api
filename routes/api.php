@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Seguridad\Auth\AuthUnlockingController;
 
 /**
  * AUTH MIDDLEWARE
@@ -9,10 +8,6 @@ use App\Http\Controllers\Seguridad\Auth\AuthUnlockingController;
  * autenticación de usuario.
  */
 Route::middleware('auth:api')->group(function () {
-
-    Route::prefix('auth')->group(function () {
-    });
-
     /**
      * VALID USER MIDDLEWARE
      * Rutas con validación de token y
@@ -31,5 +26,10 @@ Route::middleware('auth:api')->group(function () {
             require __DIR__ . '/catalogues/catalogs.php';
         });
 
+        // Inventario
+        Route::prefix('inventario')->group(function () {
+            require __DIR__ . '/inventory/products.php';
+            require __DIR__ . '/inventory/kardex.php';
+        });
     });
 });

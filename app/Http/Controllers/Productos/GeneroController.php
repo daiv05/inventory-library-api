@@ -3,17 +3,22 @@
 namespace App\Http\Controllers\Productos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Libros\Genero;
+use App\Models\Productos\Genero;
 use Illuminate\Http\Request;
+use App\Traits\ResponseTrait;
 
 class GeneroController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    use ResponseTrait;
+
     public function index()
     {
-        //
+        try {
+            $generos = Genero::all();
+            return $this->success('Géneros obtenidos correctamente', $generos, 200);
+        } catch (\Exception $e) {
+            return $this->error('Error al obtener los géneros', $e->getMessage(), 500);
+        }
     }
 
     /**
